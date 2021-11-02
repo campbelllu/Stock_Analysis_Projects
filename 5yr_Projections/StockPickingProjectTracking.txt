@@ -1,0 +1,13 @@
+Stock Picking Project Tracking (Pseudo-documentation)
+9/25-30/21
+Dealing with the hindend of a CoVID-19 infection, I got the idea to compare stocks with my data analysis skills.
+It's a project that gives me experience with web scraping, organizing that information into dataframes, from dataframes into a csv, and from a csv into Excel and Tableau. That covers the entire spectrum of technologies that I've learned and need to apply for work, plus it's a domain that fascinates me and I can use the project to answer questions that my wife and I have about how to invest in the very near future.
+My brain feels like it's slogging through jello this past week, though our health has greatly improved! I have two different datareaders in use, to compare performance. I currently prefer yfinance due to a wider array of data gathered.
+
+Straight from Yahoo Finance, I downloaded a dataset and used it to determine stock prices over time. A graph was made to display this information, showcasing my Excel skills with a simple example.
+So straight from YF, these data can be used for regression analysis, Tableau dashboards, or Excel visualizations. Pulling data in this manner is time consuming and ultimately just gives us regression analyses for guessing pricing and returns over the next x-time period.
+
+Pulling data via scraping, the process can be automated more quickly. Also, starting with specific questions to be answered is very helpful. I feel like this project started with a direct focus, and that got lost, mid-build due to brain fog.
+Time to readjust, rebuild, and then commit and finish!
+
+Going forward, I want to compare PE values and Dividend Yield of three different ETF's in two different categories: High growth and high dividend yield. Obviously, values will be drastically different, respectively. Using data, I will determine how my family will invest over the next six months.
