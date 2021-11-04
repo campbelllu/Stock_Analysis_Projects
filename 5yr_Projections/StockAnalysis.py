@@ -47,9 +47,7 @@ QYLD = {'Name': 'QYLD', 'Price': 23, 'Growth': 0.011333, 'Bad_Growth': 0.108, 'D
         'Div_Returned': 0, 'Shares_Owned': 0, 'Equity': 0, 'Total_Expenses': 0
       }
 
-
-
-#methods for stock manipulation
+#methods for stock manipulation---------------------------------------------------------------------------------------------------------
 def grow_stock(dikt): #moves stock value forward one month, changes stock price
     dikt['Price'] = dikt['Price']*(1+(dikt['Growth']))
 
@@ -59,21 +57,25 @@ def buy_stock(dikt, funds): #allows for partial share ownership, changes shares 
 
 def divs_calculated(dikt):
     dikt['Div_Returned'] = dikt['Shares_Owned']*dikt['Price']*dikt['Div_Yield']
-    
-def divs_buy_stock(dikt): #calcs divs at beg of month, buys partial shares with divs ----------------------------------------------------------------HERE 1
-    dikt['Div_Returned'] = dikt['Shares_Owned']*dikt['Price']*dikt['Div_Yield']
-    if dikt['Div_Returned'] > 0:
-        dikt['Shares_Owned'] += dikt['Div_Returned'] / dikt['Price']
+    return dikt['Div_Returned']
 
-#we also want to be able to pay our fees with dividend returns, eventually, to expand our timeframe of investments
-def divs_pay_fees(dikt):#---------------------------------------------------------------------------------------------------------------------------HERE for fee payment
-    
-    break #placeholder while building function
+###make this redundant and then delete    
+##def divs_buy_stock(dikt): #calcs divs at beg of month, buys partial shares with divs ----------------------------------------------------------------HERE 1
+##    dikt['Div_Returned'] = dikt['Shares_Owned']*dikt['Price']*dikt['Div_Yield']
+##    if dikt['Div_Returned'] > 0:
+##        dikt['Shares_Owned'] += dikt['Div_Returned'] / dikt['Price']
 
-def expenses_paid(dikt): #updates fees for stock ownership
+
+def divs_pay_fees(dikt, funds):
+    divs = divs_calculated(dikt) #calculate monthly dividends
+    fee_funds = divs + funds #calculate divs + funds
+    remainder_fund =  fee_funds - dikt['Total_Expenses'] #pay fees with dividends + funds and return remainder for later use
+    return remainder_fund
+
+def expenses_due(dikt): #updates fees for stock ownership
     dikt['Total_Expenses'] = dikt['Shares_Owned']*dikt['Price']*dikt['Expenses']
 
-#list for updating following methods, keeping it DRY
+#list for updating following methods, keeping it DRY, followed by methods-----------------------------------------------------------------
 list_columns = ['Name', 'Price', 'Shares_Owned', 'Div_Returned', 'Total_Expenses', 'Equity']
 #what do we want to see in our df?
 #name, price, shares owned, divs returned each iteration, expenses paid each year, equity
@@ -94,48 +96,57 @@ def make_df(list1): #turn a list into a df
     df = pd.DataFrame(list1, columns=list_columns)
     return df
 
+#investment methods------------------------------------------------------------------------------------------------------------------------
 #go through t months, adjust ownership and stock price, log each step into df
-def invest(dikt, t, funds): #returns data frame for stock projections
+def invest_monthly_returns(dikt, t, funds): #returns data frame for stock projections
     tracker = 0
     ref_list = make_list(dikt)
 
     while tracker <= t:
-        #divs_buy_stock(dikt) #1. divs buy stock ----------------------------------------------------------------HERE 1
-
-        if tracker == 0: #2. if tracker ==0, buy initial stock, never triggers again
+        if tracker == 0: #1. if tracker ==0, buy initial stock, never triggers again
             buy_stock(dikt, funds)
-        #need to make this next elif never trigger by paying fees with dividend funds over time    ----------------------------------------------------------------HERE to cut out
-        elif dikt['Total_Expenses'] >= funds: #3. check expenses, if exceed investment funds, stop investing
-            print("Investing funds only pay fees.")
-            break #breaks loop when fees exceed what's invested each month
-        elif (tracker+1) % 12 == 0: #4. year end, pay fees before buying stock
-            if dikt['Total_Expenses'] >= funds:
-                #use dividends + funds to pay for fees, return ----------------------------------------------------------------HERE to pay fees indefinitely and never cut out
-            buy_stock(dikt, (funds-dikt['Total_Expenses']))
-        else:
-            buy_stock(dikt, funds) #5. else: buy stock
-        
+            #print("first buy")
+##        #need to make this next elif never trigger by paying fees with dividend funds over time    ----------------------------------------------HERE to cut out
+##        elif dikt['Total_Expenses'] >= funds: #3. check expenses, if exceed investment funds, stop investing
+##            print("Investing funds only pay fees.")
+##            break #breaks loop when fees exceed what's invested each month
+        elif (tracker+1) % 12 == 0: #2. year end, pay fees before buying stock
+            expenses_due(dikt) #determines fees due
+            if dikt['Total_Expenses'] >= funds: #use dividends + funds to pay for fees
+                remainder = divs_pay_fees(dikt, funds)
+                buy_stock(dikt, remainder) #plug remainder into buy stocks function
+              #  print("paid at year end with divs")
+            else:
+                remainder = funds - dikt['Total_Expenses'] #use funds to pay for fees
+                divs = divs_calculated(dikt)#use divs and remainder to buy stocks function
+                new_fund = remainder + divs
+                buy_stock(dikt, new_fund)
+                #print("paid at year end with funds")
+        else: #3. not initial purchase, no fees due, get divs and buy stock
+            divs = divs_calculated(dikt)
+            new_fund = funds + divs
+            buy_stock(dikt, new_fund)
+           # print("no fees, bought stock")
+            
         #6. update expenses, grow stock, increase tracker, update list               
-        expenses_paid(dikt)
-        #print(dikt['Total_Expenses'])
         grow_stock(dikt) #update price for next interation        
         tracker += 1 #next data point ready to generate
         ref_list = update_list(dikt, ref_list)
+        dikt['Total_Expenses'] = 0 #return fees due to 0 for df accuracy
 
     df = make_df(ref_list)
     return df
+
+#inputs and csv creation-----------------------------------------------------------------------------------------------------------
+fundings = 1000
+time_in = 60
 
 def df_to_csv(name, df): #input name in quotes.txt
     df.to_csv(name,index="False")
     print("CSV created for \n{}".format(df.head()))
 
-
-#inputs and csv creation-----------------------------------------------------------------------------------------------------
-fundings = 1000
-time_in = 5
-
 #print df to test iterator---------------------------------------------------------------------------------------------------------
-print(invest(QYLD, time_in, fundings))
+print(invest_monthly_returns(QYLD, time_in, fundings))
 
 
 
