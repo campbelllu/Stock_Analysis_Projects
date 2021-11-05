@@ -10,37 +10,37 @@ import math
 #stock info, manually gathered-------------------------------------------------------------------------------------------------
 #############S&P's: VOO
 VOO = {'Name': 'VOO', 'Price': 400, 'Growth': 0.0142, 'Bad_Growth': 0.138, 'Div_Yield': 0.0134, 'Expenses': 0.0003,
-       'Div_Returned': 0, 'Shares_Owned': 0, 'Equity': 0
+       'Div_Returned': 0, 'Shares_Owned': 0, 'Equity': 0, 'Total_Expenses': 0, 'Funds_Invested': 0, 'Fees_Paid': 0
       }
 
 ############Growth's:
 SCHG = {'Name': 'SCHG', 'Price': 150, 'Growth': 0.0242, 'Bad_Growth': 0.23, 'Div_Yield': 0.0043, 'Expenses': 0.0004,
-        'Div_Returned': 0, 'Shares_Owned': 0, 'Equity': 0
+        'Div_Returned': 0, 'Shares_Owned': 0, 'Equity': 0, 'Total_Expenses': 0, 'Funds_Invested': 0, 'Fees_Paid': 0
       }
 
 RPG = {'Name': 'RPG', 'Price': 190, 'Growth': 0.0212, 'Bad_Growth': 0.20, 'Div_Yield': 0.0017, 'Expenses': 0.0035,
-       'Div_Returned': 0, 'Shares_Owned': 0, 'Equity': 0
+       'Div_Returned': 0, 'Shares_Owned': 0, 'Equity': 0, 'Total_Expenses': 0, 'Funds_Invested': 0, 'Fees_Paid': 0
       }
 
 VUG = {'Name': 'VUG', 'Price': 290, 'Growth': 0.02374, 'Bad_Growth': 0.228, 'Div_Yield': 0.0057, 'Expenses': 0.0004,
-       'Div_Returned': 0, 'Shares_Owned': 0, 'Equity': 0
+       'Div_Returned': 0, 'Shares_Owned': 0, 'Equity': 0, 'Total_Expenses': 0, 'Funds_Invested': 0, 'Fees_Paid': 0
       }
 
 QQQ = {'Name': 'QQQ', 'Price': 365, 'Growth': 0.025999, 'Bad_Growth': 0.249, 'Div_Yield': 0.0049, 'Expenses': 0.002,
-       'Div_Returned': 0, 'Shares_Owned': 0, 'Equity': 0
+       'Div_Returned': 0, 'Shares_Owned': 0, 'Equity': 0, 'Total_Expenses': 0, 'Funds_Invested': 0, 'Fees_Paid': 0
       }
 
 ARKK = {'Name': 'ARKK', 'Price': 100, 'Growth': 0.049999, 'Bad_Growth': 0.4797, 'Div_Yield': 0.00, 'Expenses': 0.0075,
-        'Div_Returned': 0, 'Shares_Owned': 0, 'Equity': 0
+        'Div_Returned': 0, 'Shares_Owned': 0, 'Equity': 0, 'Total_Expenses': 0, 'Funds_Invested': 0, 'Fees_Paid': 0
       }
 
 ############Div's:
 VIG = {'Name': 'VIG', 'Price': 160, 'Growth': 0.0179, 'Bad_Growth': 0.173, 'Div_Yield': 0.0156, 'Expenses': 0.006,
-       'Div_Returned': 0, 'Shares_Owned': 0, 'Equity': 0
+       'Div_Returned': 0, 'Shares_Owned': 0, 'Equity': 0, 'Total_Expenses': 0, 'Funds_Invested': 0, 'Fees_Paid': 0
       }
 
 VYM = {'Name': 'VYM', 'Price': 110, 'Growth': 0.0169, 'Bad_Growth': 0.162, 'Div_Yield': 0.0279, 'Expenses': 0.006,
-       'Div_Returned': 0, 'Shares_Owned': 0, 'Equity': 0
+       'Div_Returned': 0, 'Shares_Owned': 0, 'Equity': 0, 'Total_Expenses': 0, 'Funds_Invested': 0, 'Fees_Paid': 0
       }
 
 QYLD = {'Name': 'QYLD', 'Price': 23, 'Growth': 0.011333, 'Bad_Growth': 0.108, 'Div_Yield': 0.118, 'Expenses': 0.006,
@@ -143,8 +143,8 @@ def df_to_csv(name, df): #input name in quotes.txt
     print("CSV created for \n{}".format(df.head()))
 
 #print df to test iterator---------------------------------------------------------------------------------------------------------
-pd.set_option("display.max_columns", None)
-print(invest_monthly_returns(QYLD, time_in, fundings))
+#pd.set_option("display.max_columns", None)
+#print(invest_monthly_returns(QYLD, time_in, fundings))
 
 
 
@@ -154,10 +154,11 @@ print(invest_monthly_returns(QYLD, time_in, fundings))
 ##df_to_csv("VUG.csv", invest(VUG, time_in, fundings))
 ##df_to_csv("QQQ.csv", invest(QQQ, time_in, fundings))
 ##df_to_csv("ARKK.csv", invest(ARKK, time_in, fundings))
-##df_to_csv("VOO.csv", invest(VOO, time_in, fundings))
+df_to_csv("VOO.csv", invest_monthly_returns(VOO, time_in, fundings))
 ##df_to_csv("VIG.csv", invest(VIG, time_in, fundings))
 ##df_to_csv("VYM.csv", invest(VYM, time_in, fundings))
-##df_to_csv("QYLD.csv", invest(QYLD, time_in, fundings))
+    #completed
+##df_to_csv("QYLD.csv", invest_monthly_returns(QYLD, time_in, fundings))
 
 #------------------------------------------------------------------------------------------------------------------------------------
 #graph data from those csv's above
