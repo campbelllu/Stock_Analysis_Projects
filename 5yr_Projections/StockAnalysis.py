@@ -143,8 +143,8 @@ def df_to_csv(name, df): #input name in quotes.txt
     print("CSV created for \n{}".format(df.head()))
 
 #print df to test iterator---------------------------------------------------------------------------------------------------------
-#pd.set_option("display.max_columns", None)
-#print(invest_monthly_returns(QYLD, time_in, fundings))
+pd.set_option("display.max_columns", None)
+print(invest_monthly_returns(QYLD, time_in, fundings))
 
 
 
@@ -154,11 +154,12 @@ def df_to_csv(name, df): #input name in quotes.txt
 ##df_to_csv("VUG.csv", invest(VUG, time_in, fundings))
 ##df_to_csv("QQQ.csv", invest(QQQ, time_in, fundings))
 ##df_to_csv("ARKK.csv", invest(ARKK, time_in, fundings))
-df_to_csv("VOO.csv", invest_monthly_returns(VOO, time_in, fundings))
+
 ##df_to_csv("VIG.csv", invest(VIG, time_in, fundings))
 ##df_to_csv("VYM.csv", invest(VYM, time_in, fundings))
     #completed
 ##df_to_csv("QYLD.csv", invest_monthly_returns(QYLD, time_in, fundings))
+    ##df_to_csv("VOO.csv", invest_monthly_returns(VOO, time_in, fundings))
 
 #------------------------------------------------------------------------------------------------------------------------------------
 #graph data from those csv's above
