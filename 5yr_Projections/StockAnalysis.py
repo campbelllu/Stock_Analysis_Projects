@@ -143,21 +143,21 @@ def df_to_csv(name, df): #input name in quotes.txt
     print("CSV created for \n{}".format(df.head()))
 
 #print df to test iterator---------------------------------------------------------------------------------------------------------
-#pd.set_option("display.max_columns", None)
-#print(invest_monthly_returns(QYLD, time_in, fundings))
+pd.set_option("display.max_columns", None)
+print(invest_monthly_returns(QYLD, time_in, fundings))
 
 #create all the csv's of data
     #completed
 #df_to_csv("QYLD.csv", invest_monthly_returns(QYLD, time_in, fundings))
     ##df_to_csv("VOO.csv", invest_monthly_returns(VOO, time_in, fundings))
-df_to_csv("SCHG.csv", invest_monthly_returns(SCHG, time_in, fundings))
-df_to_csv("RPG.csv", invest_monthly_returns(RPG, time_in, fundings))
-df_to_csv("VUG.csv", invest_monthly_returns(VUG, time_in, fundings))
-df_to_csv("QQQ.csv", invest_monthly_returns(QQQ, time_in, fundings))
-df_to_csv("ARKK.csv", invest_monthly_returns(ARKK, time_in, fundings))
-
-df_to_csv("VIG.csv", invest_monthly_returns(VIG, time_in, fundings))
-df_to_csv("VYM.csv", invest_monthly_returns(VYM, time_in, fundings))
+##df_to_csv("SCHG.csv", invest_monthly_returns(SCHG, time_in, fundings))
+##df_to_csv("RPG.csv", invest_monthly_returns(RPG, time_in, fundings))
+##df_to_csv("VUG.csv", invest_monthly_returns(VUG, time_in, fundings))
+##df_to_csv("QQQ.csv", invest_monthly_returns(QQQ, time_in, fundings))
+##df_to_csv("ARKK.csv", invest_monthly_returns(ARKK, time_in, fundings))
+##
+##df_to_csv("VIG.csv", invest_monthly_returns(VIG, time_in, fundings))
+##df_to_csv("VYM.csv", invest_monthly_returns(VYM, time_in, fundings))
 
 #------------------------------------------------------------------------------------------------------------------------------------
 #graph data from those csv's above
